@@ -1,0 +1,52 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Liste des livres</h2>
+
+
+
+@if (Session["Etudiant"] != null)
+{
+    <a class="btn btn-warning" href="~/Livres/Return" role="button">Retour </a>
+}
+else
+{
+    <a class="btn btn-primary" href="~/Livres/New" role="button">Ajouter livre</a>
+}
+@if (Model.Count == 0)
+{
+    <p>la liste des livres est vide.</p>
+}
+else
+{
+
+    <br />
+    <br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Année publication</th>
+                <th>Nombre en stock</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var livre in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink((string)livre.Titre, "Details", "Livres", new { id = livre.Id }, null)</td>
+                    <td>@Html.ActionLink((string)livre.Auteur, "Details", "Livres", new { id = livre.Id }, null)</td>
+                    <td>@livre.AnneePublication</td>
+                    <td>@livre.NombreEnStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

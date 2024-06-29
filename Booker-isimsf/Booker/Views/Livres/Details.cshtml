@@ -1,0 +1,59 @@
+﻿@model Booker.ViewModels.LivreEtudiantViewModel
+
+@{
+    /**/
+
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Livre.Titre</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Auteur</th>
+            <th>Année publication</th>
+            <th>Nombre en stock</th>
+            <th>Nombre Emprunté</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Livre.Auteur</td>
+            <td>@Model.Livre.AnneePublication</td>
+            <td>@Model.Livre.NombreEnStock
+             (@Model.Livre.NomberEmprunte)</td>
+        </tr>
+    </tbody>
+</table>
+
+@if (Session["Etudiant"] != null)
+{
+    if (!Model.RentedBySession)
+    {
+        using (Html.BeginForm("AddCustomerBook/" + Model.Livre.Id, "Livres"))
+        {
+            <button type="submit" class="btn btn-primary">Réserver</button>
+        }
+
+    <br />
+    } else {
+        using (Html.BeginForm("ReturnBook/" + Model.Livre.Id, "Livres"))
+        {
+            <button type="submit" class="btn btn-warning">Returner le livre</button>
+        }
+    }
+}
+else
+{
+    using (Html.BeginForm("Edit/" + Model.Livre.Id, "Livres"))
+    {
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    }
+}
+
+<br />
+
+<a class="btn btn-primary" href="~/Livres/Index" role="button">Retour</a>

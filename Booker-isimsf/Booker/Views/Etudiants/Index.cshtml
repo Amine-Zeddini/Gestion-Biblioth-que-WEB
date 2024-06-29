@@ -1,0 +1,44 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Liste des étudiants</h2>
+@if (Model.Count == 0)
+{
+    <p>La list est vide.</p>
+}
+else
+{
+    <a class="btn btn-primary" href="~/Etudiants/New" role="button">Ajouter étudiant</a>
+    <br />
+    <br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>prénom</th>
+                <th>Code inscription</th>
+                <th>Filiére</th>
+                <th>Groupe</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var etudiant in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink((string)etudiant.Name, "Details", "Etudiants", new { id = etudiant.Id }, null)</td>
+
+                    <td>@etudiant.Prenom</td>
+                    <td>@etudiant.CodeInscription</td>
+                    <td>@etudiant.Filiere</td>
+                    <td>@etudiant.Groupe</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}

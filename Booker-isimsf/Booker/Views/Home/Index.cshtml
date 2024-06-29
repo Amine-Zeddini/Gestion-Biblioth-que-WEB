@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .background-image {
+        background-image: url('@Url.Content("~/Content/images/imis.jpg")');
+        background-size: cover; /* Adjusts the size of the background image to cover the entire element */
+        background-position: center; /* Centers the background image */
+        /* Additional styles such as background color, opacity, etc. */
+    }
+</style>
+
+<div class="text-center background-image">
+    <h1 class="display-4">Bienvenue dans l'espace de réservation des livres ISIM Sfax</h1>
+    </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>  </br>
+    <a role="button" href="~/Etudiants/Index" class="btn btn-primary btn-lg btn-block">Voir la liste des étudiants</a>
+    <a role="button" href="~/Livres/Index" class="btn btn-primary btn-lg btn-block">Voir la liste des livres </a>
+</div>
+

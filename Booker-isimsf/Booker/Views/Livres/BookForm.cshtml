@@ -1,0 +1,60 @@
+﻿@model Booker.ViewModels.LivreFormViewModel
+
+@{
+    ViewBag.Title = "Livre Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Livre.Id > 0)
+{
+    <h2>@Model.Livre.Titre</h2>
+}
+else
+{
+    <h2>Ajouter livre</h2>
+}
+
+@using (Html.BeginForm("Save", "Livres"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Livre.Titre)
+        @Html.TextBoxFor(m => m.Livre.Titre, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Livre.Titre)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Livre.Auteur)
+        @Html.TextBoxFor(m => m.Livre.Auteur, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Livre.Auteur)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Livre.AnneePublication)
+        @Html.DropDownListFor(m => m.Livre.AnneePublication, (IEnumerable<SelectListItem>)ViewBag.Years, "Year", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Livre.AnneePublication)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Livre.NombreEnStock)
+        @Html.TextBoxFor(m => m.Livre.NombreEnStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Livre.NombreEnStock)
+    </div>
+    
+    @Html.HiddenFor(m => m.Livre.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" formmethod="post" class="btn btn-primary">Enregistrer</button>
+}
+
+
+@if (Model.Livre.Id > 0)
+{
+    <br />
+
+    using (Html.BeginForm("Delete/" + Model.Livre.Id, "Livres"))
+    {
+        @Html.HiddenFor(m => m.Livre.Id)
+        <button type="submit" formmethod="post" class="btn btn-danger">Supprimer</button>
+    }
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

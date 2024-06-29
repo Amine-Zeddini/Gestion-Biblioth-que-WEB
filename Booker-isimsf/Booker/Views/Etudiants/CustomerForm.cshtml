@@ -1,0 +1,71 @@
+﻿@model Booker.ViewModels.EtudiantFormViewModel
+
+@{
+    ViewBag.Title = "Etudiant Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Etudiant.Id > 0)
+{
+    <h2>@Model.Etudiant.Prenom @Model.Etudiant.Name</h2>
+}
+else
+{
+    <h2>Nouveau étudiant</h2>
+}
+
+@using (Html.BeginForm("Save", "Etudiants"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Etudiant.Name)
+        @Html.TextBoxFor(m => m.Etudiant.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Etudiant.Name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Etudiant.Prenom)
+        @Html.TextBoxFor(m => m.Etudiant.Prenom, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Etudiant.Prenom)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Etudiant.Email)
+        @Html.TextBoxFor(m => m.Etudiant.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Etudiant.Email)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Etudiant.CodeInscription)
+        @Html.TextBoxFor(m => m.Etudiant.CodeInscription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Etudiant.CodeInscription)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Etudiant.Filiere)
+        @Html.TextBoxFor(m => m.Etudiant.Filiere, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Etudiant.Filiere)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Etudiant.Groupe)
+        @Html.TextBoxFor(m => m.Etudiant.Groupe, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Etudiant.Groupe)
+    </div>
+
+    @Html.HiddenFor(m => m.Etudiant.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" formmethod="post" class="btn btn-primary">Enregistrer</button>
+}
+
+
+@if (Model.Etudiant.Id > 0)
+{
+    <br />
+
+    using (Html.BeginForm("Delete/" + Model.Etudiant.Id, "Etudiants"))
+    {
+        @Html.HiddenFor(m => m.Etudiant.Id)
+        <button type="submit" formmethod="post" class="btn btn-danger">Supprimer</button>
+    }
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
